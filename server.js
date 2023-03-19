@@ -1,7 +1,6 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const os = require('os');
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 
@@ -30,6 +29,12 @@ app.use('/storage', express.static(path.join(__dirname, 'storage')));
 app.post('/upload', upload.single('file'), (req, res) => {
   res.send({ file: req.file });
 });
+
+app.get('/', (req, res) => {
+    res.send({ 
+        message:"Basic Storage Server Version 1.0.0"
+     });
+  });
 
 app.listen(3000, () => {
     console.log('Server is running!')
