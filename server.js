@@ -2,10 +2,14 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const os = require('os');
+const cors = require('cors')
 const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
+
+app.use(cors())
+
 const upload = multer({
   limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB limit
   storage: multer.diskStorage({
@@ -28,9 +32,9 @@ const upload = multer({
 app.use('/storage', express.static(path.join(__dirname, 'storage')));
 
 app.post('/upload', upload.single('file'), (req, res) => {
-  res.send({ file: req.file });
+  res.send({ file: req.file, secure_url:`${"http://localhost:5000"}/storage/${req.file.filename}` });
 });
 
-app.listen(3000, () => {
+app.listen(5000, () => {
     console.log('Server is running!')
 })
