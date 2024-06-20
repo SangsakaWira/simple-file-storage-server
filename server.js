@@ -10,6 +10,8 @@ const app = express();
 
 app.use(cors())
 
+console.log(process.env.HOST)
+
 const upload = multer({
   limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB limit
   storage: multer.diskStorage({
