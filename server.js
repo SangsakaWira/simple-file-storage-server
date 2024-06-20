@@ -32,7 +32,7 @@ const upload = multer({
 app.use('/storage', express.static(path.join(__dirname, 'storage')));
 
 app.post('/upload', upload.single('file'), (req, res) => {
-  res.send({ file: req.file, secure_url:`${"http://localhost:5000"}/storage/${req.file.filename}` });
+  res.send({ file: req.file, secure_url:`${process.env.HOST}/storage/${req.file.filename}` });
 });
 
 app.listen(5000, () => {
